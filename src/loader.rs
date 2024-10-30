@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 use rfd::FileDialog;
 use bevy_egui::{egui, EguiContexts, EguiPlugin};
+use crate::properties::PROPERTIES;
 
 pub struct LoaderPlugin;
 
@@ -30,16 +31,20 @@ struct CurrentSceneHandle(Option<Entity>);
 #[derive(Component)]
 struct Scalable; 
 
-fn ui_system(mut contexts: EguiContexts, mut krooz: ResMut<KROOZ>) {
-    egui::Window::new("Properties").show(contexts.ctx_mut(), |ui| {
+fn ui_system(mut contexts: EguiContexts, mut krooz: ResMut<KROOZ> , pro: Res<PROPERTIES>) {
+
+    if !pro.is_screen
+    {
+        egui::Window::new("Properties").id(egui::Id::new("rnd")).show(contexts.ctx_mut(), |ui| {
         // Scale slider
         ui.add(egui::Slider::new(&mut krooz.scale, 0.01..=10.0).text("Scale"));
-        
         // Position sliders
         ui.add(egui::Slider::new(&mut krooz.x, -10.0..=10.0).text("Position X"));
         ui.add(egui::Slider::new(&mut krooz.y, -10.0..=10.0).text("Position Y"));
         ui.add(egui::Slider::new(&mut krooz.z, -10.0..=10.0).text("Position Z"));
     });
+    }
+
 }
 
 fn open_file_picker(
@@ -58,12 +63,10 @@ fn open_file_picker(
             let path_str = format!("{}{}", path.to_str().unwrap().to_string(), setter);
             let handle = asset_server.load(&path_str);
 
-            // Despawn the previous scene if it exists
             if let Some(entity) = current_scene_handle.0 {
                 commands.entity(entity).despawn_recursive();
             }
 
-            // Spawn the new scene with the initial scale and position
             let entity = commands.spawn(SceneBundle {
                 scene: handle,
                 transform: Transform {
