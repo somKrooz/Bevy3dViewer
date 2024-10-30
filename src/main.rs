@@ -42,7 +42,7 @@ fn cursor_grab(
     input: Res<ButtonInput<KeyCode>>, // Changed to Res<Input<KeyCode>> for handling keyboard input
 ) {
     let mut primary_window = q_windows.single_mut();
-     primary_window.title = "Ruty-GLTF".to_string();
+     primary_window.title = "Rusty-GLTF".to_string();
     if input.just_pressed(KeyCode::KeyG) {
         primary_window.cursor.grab_mode = match primary_window.cursor.grab_mode {
             CursorGrabMode::Locked => CursorGrabMode::None, // Unlock if currently locked
