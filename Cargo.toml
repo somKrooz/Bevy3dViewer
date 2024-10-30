@@ -1,0 +1,11 @@
+[package]
+name = "graphics"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bevy = "0.14.2"
+bevy_atmosphere = "0.10.0"
+bevy_blendy_cameras = "0.5.1"
+bevy_egui = "0.30.0"
+rfd = "0.15.0"
