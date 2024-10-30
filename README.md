@@ -1,4 +1,4 @@
-# 3D Model Viewer using RAYLIB and C
+# 3D Model Viewer using Rust and Bevy
 Rewritting My Old Gltf 3d Model Viewer In Rust Using Bevy
 
 <ul>
