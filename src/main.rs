@@ -42,7 +42,7 @@ fn cursor_grab(
     input: Res<ButtonInput<KeyCode>>, // Changed to Res<Input<KeyCode>> for handling keyboard input
 ) {
     let mut primary_window = q_windows.single_mut();
-
+     primary_window.title = "Ruty-GLTF".to_string();
     if input.just_pressed(KeyCode::KeyG) {
         primary_window.cursor.grab_mode = match primary_window.cursor.grab_mode {
             CursorGrabMode::Locked => CursorGrabMode::None, // Unlock if currently locked
@@ -63,10 +63,9 @@ fn spawn_floor(
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
     let mut material = StandardMaterial::default();
-    material.base_color_texture = None;
-    material.alpha_mode = AlphaMode::Mask(0.1);
+    material.base_color = Color::srgb(0.1, 0.1, 0.1);
+    material.perceptual_roughness = 0.2;
     material.double_sided = true;
-    material.cull_mode = None;
 
     let floor = PbrBundle {
         mesh: meshes.add(Mesh::from(Plane3d::default().mesh().size(10000.0, 10000.0))),
