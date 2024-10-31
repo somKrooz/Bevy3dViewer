@@ -11,6 +11,7 @@ pub mod properties;
 use loader::LoaderPlugin;
 use crate::properties::PROPERTIES;
 
+
 // #[derive(Resource)]
 // struct ScreenshotTimer(Timer);
 
@@ -164,3 +165,5 @@ fn spawn_light(mut commands: Commands) {
         ..default()
     });
 }
+
+
